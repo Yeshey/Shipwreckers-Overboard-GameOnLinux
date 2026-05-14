@@ -7,7 +7,7 @@ Run with `nix run github:Yeshey/Shipwreckers-Overboard-GameOnLinux`
 
 This just doesn't work that well
 
-Passwords:
+In game level Passwords:
 
 ### Inca Region Passwords
 * **Level 1:** Fish, Fish, Anchor, Ship, Skull, Anchor
