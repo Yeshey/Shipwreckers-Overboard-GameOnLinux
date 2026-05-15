@@ -402,7 +402,7 @@ EOF
         export LD_PRELOAD="$SHIM''${LD_PRELOAD:+:$LD_PRELOAD}"
         export GLIBC_TUNABLES=glibc.malloc.tcache_count=0
         # export WINEDEBUG=-ddraw
-        exec "$WINE" explorer /desktop=overboard,1280x960 "$EXE" > t.txt
+        exec "$WINE" explorer /desktop=overboard,1280x960 "$EXE"
       '';
 
     in {
