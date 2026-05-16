@@ -9,11 +9,6 @@
       pkgs = nixpkgs.legacyPackages.${system};
       wine = pkgs.wineWow64Packages.stagingFull;
 
-      cncDdraw = pkgs.fetchurl {
-        url    = "https://github.com/CnCNet/cnc-ddraw/releases/latest/download/cnc-ddraw.zip";
-        sha256 = "sha256-CxOriaZMmRgYmx2t1EnvbtPLO3sZyr2W2K29lVBbuQg=";  # run once, replace with real hash from error
-      };
-
       # ---------------------------------------------------------------------------
       # Game Data Fetch
       # ---------------------------------------------------------------------------
