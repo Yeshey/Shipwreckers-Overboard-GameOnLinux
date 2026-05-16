@@ -7,6 +7,12 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      wine = pkgs.wineWow64Packages.stagingFull;
+
+      cncDdraw = pkgs.fetchurl {
+        url    = "https://github.com/CnCNet/cnc-ddraw/releases/latest/download/cnc-ddraw.zip";
+        sha256 = "sha256-CxOriaZMmRgYmx2t1EnvbtPLO3sZyr2W2K29lVBbuQg=";  # run once, replace with real hash from error
+      };
 
       # ---------------------------------------------------------------------------
       # Game Data Fetch
@@ -205,7 +211,7 @@
 
         WINEPREFIX="''${WINEPREFIX:-$HOME/.wine-overboard}"
         export WINEPREFIX
-        WINE="${pkgs.wineWow64Packages.stable}/bin/wine"
+        WINE="${wine}/bin/wine"
         SHIM="${fakeCdrom}/lib/fake_cdrom.so"
         STATE_DIR="$HOME/.local/share/overboard"
         ISO="$STATE_DIR/overboard.iso"
@@ -374,7 +380,7 @@ EOF
           || echo "WARNING: could not set Wine drive type for D:"
 
         echo "Flushing registry to disk..."
-        "${pkgs.wineWow64Packages.stable}/bin/wineserver" -k 2>/dev/null || true
+        "${wine}/bin/wineserver" -k 2>/dev/null || true
         sleep 3
         echo "Flush complete."
 
@@ -401,8 +407,8 @@ EOF
 
         export LD_PRELOAD="$SHIM''${LD_PRELOAD:+:$LD_PRELOAD}"
         export GLIBC_TUNABLES=glibc.malloc.tcache_count=0
-        # export WINEDEBUG=-ddraw
         exec ${pkgs.gamescope}/bin/gamescope \
+          --backend sdl \
           -w 640 -h 480 \
           -W 1920 -H 1080 \
           -f \
