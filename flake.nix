@@ -12,12 +12,26 @@
       # ---------------------------------------------------------------------------
       # Game Data Fetch
       # ---------------------------------------------------------------------------
-      gameData = pkgs.fetchzip {
-        url = "https://d1.xp.myab.net/t/a7db0d57-3165-458c-b8fa-de72b873913f/Shipwreckers_Win_EN_ISO-Version.zip";
-        # or https://www.bestoldgames.net/shipwreckers ?
-        hash = "sha256-wz6AwJZtYPzC3/92Qltk8e0HwNoa2pTc/2jbFOAHg6U=";
-        stripRoot = false;
-      };
+      # gameData = pkgs.fetchzip {
+      #   url = "https://d1.xp.myab.net/t/a7db0d57-3165-458c-b8fa-de72b873913f/Shipwreckers_Win_EN_ISO-Version.zip";
+      #   # or https://www.bestoldgames.net/shipwreckers ?
+      #   hash = "sha256-wz6AwJZtYPzC3/92Qltk8e0HwNoa2pTc/2jbFOAHg6U=";
+      #   stripRoot = false;
+      # };
+
+      fetchFromGDrive = pkgs.callPackage ./gdrive-fetch.nix { };
+
+      gameData = pkgs.runCommand "shipwreckers-unpacked" {
+        src = fetchFromGDrive {
+          name   = "Shipwreckers.zip";
+          id     = "1aCCA4yDSDxcLCpyrPRkX0cZa0J0dK3fj";
+          sha256 = "sha256-HLpNeOjsLVLcB1e5z8PxTK+JT9umgVEj9ZNGic8M0Vo=";
+        };
+        nativeBuildInputs = [ pkgs.unzip ];
+      } ''
+        mkdir -p $out
+        unzip -q $src -d $out
+      '';
 
       # ---------------------------------------------------------------------------
       # fake_cdrom.so – LD_PRELOAD shim
