@@ -1,7 +1,7 @@
 # Shipwreckers-Overboard-GameOnLinux
 Run Shipwreckers! (Overboard!) in a nix flakes enabled computer
 
-Downloads from https://d1.xp.myab.net/t/a7db0d57-3165-458c-b8fa-de72b873913f/Shipwreckers_Win_EN_ISO-Version.zip
+Downloads from my Googledrive which is a copy of the iso version I got here: https://www.myabandonware.com/game/shipwreckers-bhi
 
 Run with `nix run github:Yeshey/Shipwreckers-Overboard-GameOnLinux`
 
